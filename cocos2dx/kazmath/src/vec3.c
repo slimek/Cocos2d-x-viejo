@@ -160,7 +160,7 @@ kmVec3* kmVec3Transform(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
     /*
         a = (Vx, Vy, Vz, 1)
-        b = (a×M)T
+        b = (axM)T
         Out = (bx, by, bz)
     */
 
@@ -216,8 +216,8 @@ kmVec3* kmVec3TransformCoord(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
     /*
         a = (Vx, Vy, Vz, 1)
-        b = (a×M)T
-        Out = 1⁄bw(bx, by, bz)
+        b = (axM)T
+        Out = 1/bw(bx, by, bz)
     */
 
     kmVec4 v;
@@ -237,7 +237,7 @@ kmVec3* kmVec3TransformNormal(kmVec3* pOut, const kmVec3* pV, const kmMat4* pM)
 {
 /*
     a = (Vx, Vy, Vz, 0)
-    b = (a×M)T
+    b = (axM)T
     Out = (bx, by, bz)
 */
     //Omits the translation, only scaling + rotating
