@@ -37,11 +37,13 @@ AppPackages
 
 # Ignore files build by ndk and eclipse
 libs/
+lib/
 bin/
 obj/
 gen/
 assets/
 local.properties
+.settings/
 
 # Ignore specific winrt files 
 cocos2dx/platform/third_party/winrt/freetype/src
