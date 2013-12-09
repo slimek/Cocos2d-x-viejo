@@ -52,16 +52,7 @@ THE SOFTWARE.
 #include <stdlib.h>
 #include <time.h>
 
-// for MIN MAX and sys/time.h on win32 platform
-#ifndef __MINGW32__
-
-#define MIN     min
-#define MAX     max
-
-#else // __MINGW32__
-
-#include <sys/time.h>
-
+// SIXION FIX: Always define MIN/MAX on win32 platform.
 #ifndef MIN
 #define MIN(x,y) (((x) > (y)) ? (y) : (x))
 #endif  // MIN
@@ -69,6 +60,11 @@ THE SOFTWARE.
 #ifndef MAX
 #define MAX(x,y) (((x) < (y)) ? (y) : (x))
 #endif  // MAX
+
+// for sys/time.h on win32 platform
+#ifdef __MINGW32__
+
+#include <sys/time.h>
 
 #endif // __MINGW32__
 

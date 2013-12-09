@@ -68,7 +68,8 @@ int CCApplication::run()
             }
             else
             {
-                Sleep(0);
+                //Sleep(0);  // SIXION FIX: Prevent this spin to consume a whole CPU.
+                Sleep(1);
             }
             continue;
         }

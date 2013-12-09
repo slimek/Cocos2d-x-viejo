@@ -441,7 +441,11 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         switch (wParam)
         {
         case SIZE_RESTORED:
-            CCApplication::sharedApplication()->applicationWillEnterForeground();
+            // SIXION FIX: Prevent an Enter Foreground before the Finish Launching event.
+            if ( CCDirector::sharedDirector()->getOpenGLView() )
+            {
+                CCApplication::sharedApplication()->applicationWillEnterForeground();
+            }
             break;
         case SIZE_MINIMIZED:
             CCApplication::sharedApplication()->applicationDidEnterBackground();
@@ -517,6 +521,11 @@ LRESULT CCEGLView::WindowProc(UINT message, WPARAM wParam, LPARAM lParam)
         break;
 
     case WM_CLOSE:
+        // SIXION FIX: Trigger an Enter Background event before the app exits.
+        if ( !IsIconic( m_hWnd ))
+        {
+            CCApplication::sharedApplication()->applicationDidEnterBackground();
+        }
         CCDirector::sharedDirector()->end();
         break;
 

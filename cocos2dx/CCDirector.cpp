@@ -692,6 +692,9 @@ void CCDirector::end()
 
 void CCDirector::purgeDirector()
 {
+    // SIXION: We need to notify that the program will exit.
+    CCApplication::sharedApplication()->applicationWillTerminate();
+
     // cleanup scheduler
     getScheduler()->unscheduleAll();
     

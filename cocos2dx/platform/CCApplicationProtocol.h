@@ -76,6 +76,12 @@ public:
     virtual void applicationWillEnterForeground() = 0;
 
     /**
+    @brief  SIXION specific : The function be called when the application will termiate. Only available in Win32.
+    @param  the pointer of the application
+    */
+    virtual void applicationWillTerminate() {}
+
+    /**
     @brief    Callback by CCDirector for limit FPS.
     @interval       The time, expressed in seconds, between current frame and next. 
     */
