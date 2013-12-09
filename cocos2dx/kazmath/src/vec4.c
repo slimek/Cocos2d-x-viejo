@@ -26,6 +26,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <memory.h>
 #include <assert.h>
+#include <string.h>
 
 #include "kazmath/utility.h"
 #include "kazmath/vec4.h"
