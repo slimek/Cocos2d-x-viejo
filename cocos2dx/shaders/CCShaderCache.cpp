@@ -73,7 +73,7 @@ CCShaderCache::CCShaderCache()
 
 CCShaderCache::~CCShaderCache()
 {
-    CCLOGINFO("cocos2d deallocing 0x%X", this);
+    CCLOGINFO("cocos2d deallocing 0x%X", (int)this);
     m_pPrograms->release();
 }
 
