@@ -30,8 +30,7 @@ CCDENSHION_BUILT_MODULE := $(LOCAL_BUILT_MODULE)
 #
 
 COCOS_LIB := ../../lib
-COCOS_LIB_NDK := $(COCOS_LIB)/Android.Ndk
-COCOS_LIB_NDK_CFG := $(COCOS_LIB_NDK)/$(COCOS_CONFIG)
+COCOS_LIB_NDK_CFG := $(COCOS_LIB)/Android.Ndk.$(COCOS_CONFIG)
 COCOS_THIRD_PREBUILT := ../../cocos2dx/platform/third_party/android/prebuilt
 
 COCOS_ARCH_ABI := $(TARGET_ARCH_ABI)
@@ -50,7 +49,6 @@ all: $(COCOS_ARCH_ABI)
 
 $(COCOS_ARCH_ABI): $(COCOS2DX_BUILT_MODULE) $(CCDENSHION_BUILT_MODULE)
 	$(call host-mkdir,$(COCOS_LIB))
-	$(call host-mkdir,$(COCOS_LIB_NDK))
 	$(call host-mkdir,$(COCOS_LIB_NDK_CFG))
 	$(call host-mkdir,$(COCOS_LIB_NDK_CFG)/$@)
 	$(call cocos-copy,libcocos2d.a)
