@@ -58,6 +58,7 @@ $(COCOS_ARCH_ABI): $(COCOS2DX_BUILT_MODULE) $(CCDENSHION_BUILT_MODULE)
 	$(call third-copy,libpng)
 	$(call third-copy,libtiff)
 	$(call third-copy,libwebp)
+	$(call third-copy,libcurl)
 
 
 #
