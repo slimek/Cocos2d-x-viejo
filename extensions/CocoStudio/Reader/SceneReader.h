@@ -30,6 +30,11 @@
 #include "ExtensionMacros.h"
 
 NS_CC_EXT_BEGIN
+
+
+typedef void (CCObject::*SEL_CallFuncOD)(CCObject*, void*);
+#define callfuncOD_selector(_SELECTOR) (SEL_CallFuncOD)(&_SELECTOR)
+
 /**
 *   @js NA
 *   @lua NA
@@ -42,15 +47,21 @@ public:
 
 public:
 	static SceneReader* sharedSceneReader();
-	void purgeSceneReader();
+	static void purge();
 	static const char* sceneReaderVersion();
 	cocos2d::CCNode* createNodeWithSceneFile(const char *pszFileName);
+	static void setTarget(CCObject *rec, SEL_CallFuncOD selector);
+	cocos2d::CCNode* getNodeByTag(int nTag);
 private:
-    cocos2d::CCNode* createObject(cs::CSJsonDictionary * inputFiles, cocos2d::CCNode* parent);
-    void setPropertyFromJsonDict(cocos2d::CCNode *node, cs::CSJsonDictionary* dict);
-
+    cocos2d::CCNode* createObject(const rapidjson::Value &root, cocos2d::CCNode* parent);
+    void setPropertyFromJsonDict(const rapidjson::Value &root, cocos2d::CCNode *node);
+    bool readJson(const char *pszFileName, rapidjson::Document &doc);
+	cocos2d::CCNode* nodeByTag(cocos2d::CCNode *pParent, int nTag);
 private:
-	static SceneReader* s_sharedReader;
+	static SceneReader* _sharedReader;
+	static CCObject*       _pListener;
+	static SEL_CallFuncOD  _pfnSelector;
+	cocos2d::CCNode *_pNode;
 };
 
 
