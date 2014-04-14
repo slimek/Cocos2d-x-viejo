@@ -32,6 +32,11 @@ namespace cocos2d {
 
 void _AtlasPage_createTexture (AtlasPage* self, const char* path) {
 	CCTexture2D* texture = CCTextureCache::sharedTextureCache()->addImage(path);
+    if( self->minFilter >= ATLAS_MIPMAP && self->minFilter <= ATLAS_MIPMAP_LINEAR_LINEAR )
+    {
+        texture->generateMipmap();
+        texture->setAntiAliasTexParameters();
+    }
 	CCTextureAtlas* textureAtlas = CCTextureAtlas::createWithTexture(texture, 4);
 	textureAtlas->retain();
 	self->rendererObject = textureAtlas;
