@@ -482,6 +482,8 @@ bool CCFileUtils::init()
 
 void CCFileUtils::purgeCachedEntries()
 {
+    // SIXION INSERT
+    std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
     m_fullPathCache.clear();
 }
 
@@ -606,13 +608,18 @@ std::string CCFileUtils::fullPathForFilename(const char* pszFileName)
     }
     
     // Already Cached ?
-    std::map<std::string, std::string>::iterator cacheIter = m_fullPathCache.find(pszFileName);
-    if (cacheIter != m_fullPathCache.end())
     {
-        //CCLOG("Return full path from cache: %s", cacheIter->second.c_str());
-        return cacheIter->second;
+        // SIXION INSERT
+        std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
+
+        std::map<std::string, std::string>::iterator cacheIter = m_fullPathCache.find(pszFileName);
+        if (cacheIter != m_fullPathCache.end())
+        {
+            //CCLOG("Return full path from cache: %s", cacheIter->second.c_str());
+            return cacheIter->second;
+        }
     }
-    
+        
     // Get the new file name.
     std::string newFilename = getNewFilename(pszFileName);
     
@@ -629,6 +636,9 @@ std::string CCFileUtils::fullPathForFilename(const char* pszFileName)
             
             if (fullpath.length() > 0)
             {
+                // SIXION INSERT
+                std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
+
                 // Using the filename passed in as key.
                 m_fullPathCache.insert(std::pair<std::string, std::string>(pszFileName, fullpath));
                 //CCLOG("Returning path: %s", fullpath.c_str());
@@ -655,7 +665,13 @@ const char* CCFileUtils::fullPathFromRelativeFile(const char *pszFilename, const
 void CCFileUtils::setSearchResolutionsOrder(const std::vector<std::string>& searchResolutionsOrder)
 {
     bool bExistDefault = false;
-    m_fullPathCache.clear();
+    
+    {
+        // SIXION INSERT
+        std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
+        m_fullPathCache.clear();
+    }
+
     m_searchResolutionsOrderArray.clear();
     for (std::vector<std::string>::const_iterator iter = searchResolutionsOrder.begin(); iter != searchResolutionsOrder.end(); ++iter)
     {
@@ -697,7 +713,12 @@ void CCFileUtils::setSearchPaths(const std::vector<std::string>& searchPaths)
 {
     bool bExistDefaultRootPath = false;
 
-    m_fullPathCache.clear();
+    {
+        // SIXION INSERT
+        std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
+        m_fullPathCache.clear();
+    }
+
     m_searchPathArray.clear();
     for (std::vector<std::string>::const_iterator iter = searchPaths.begin(); iter != searchPaths.end(); ++iter)
     {
@@ -765,7 +786,12 @@ void CCFileUtils::removeAllPaths()
 }
 void CCFileUtils::setFilenameLookupDictionary(CCDictionary* pFilenameLookupDict)
 {
-    m_fullPathCache.clear();
+    {
+        // SIXION INSERT
+        std::lock_guard< std::mutex > lock( m_fullPathCacheMutex );
+        m_fullPathCache.clear();
+    }
+
     CC_SAFE_RELEASE(m_pFilenameLookupDict);
     m_pFilenameLookupDict = pFilenameLookupDict;
     CC_SAFE_RETAIN(m_pFilenameLookupDict);

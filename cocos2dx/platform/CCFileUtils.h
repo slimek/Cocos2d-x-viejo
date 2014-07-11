@@ -27,6 +27,7 @@ THE SOFTWARE.
 #include <string>
 #include <vector>
 #include <map>
+#include <mutex>
 #include "CCPlatformMacros.h"
 #include "ccTypes.h"
 #include "ccTypeInfo.h"
@@ -429,6 +430,7 @@ protected:
      *  This variable is used for improving the performance of file search.
      */
     std::map<std::string, std::string> m_fullPathCache;
+    mutable std::mutex m_fullPathCacheMutex;
     
     /**
      *  The singleton pointer of CCFileUtils.
