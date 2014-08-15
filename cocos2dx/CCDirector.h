@@ -112,7 +112,7 @@ public:
      * @lua NA
      */
     virtual long getClassTypeInfo() {
-		static const long id = cocos2d::getHashCodeByString(typeid(cocos2d::CCDirector).name());
+		static const long id = (long)cocos2d::getHashCodeByString(typeid(cocos2d::CCDirector).name());
 		return id;
     }
 
