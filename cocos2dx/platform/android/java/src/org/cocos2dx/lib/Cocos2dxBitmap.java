@@ -284,7 +284,9 @@ public class Cocos2dxBitmap {
 		if (pConstrainHeight > pTotalHeight) {
 			switch (pVerticalAlignment) {
 			case VERTICALALIGN_TOP:
-				y = -pFontMetricsInt.top;
+				// SIXION Modify: let the text be closer to the margin.
+				//y = -pFontMetricsInt.top;
+				y = -pFontMetricsInt.ascent;
 				break;
 			case VERTICALALIGN_CENTER:
 				y = -pFontMetricsInt.top + (pConstrainHeight - pTotalHeight)
