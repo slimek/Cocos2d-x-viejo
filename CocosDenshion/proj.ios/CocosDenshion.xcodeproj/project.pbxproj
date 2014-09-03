@@ -154,7 +154,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SP;
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Cocoachina;
 			};
 			buildConfigurationList = D87CC2C0154FC66100AAFE11 /* Build configuration list for PBXProject "CocosDenshion" */;
